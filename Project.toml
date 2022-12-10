@@ -1,0 +1,7 @@
+name = "TemplateMatching"
+uuid = "b21ddb9f-2587-4215-bf7c-fbe182daf540"
+authors = ["mle-seach <113145496+mle-seach@users.noreply.github.com>"]
+version = "0.1.0"
+
+[compat]
+julia = "1.8"
