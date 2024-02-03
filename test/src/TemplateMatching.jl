@@ -181,8 +181,8 @@ end
     end
 end
 
-@testset "::CorrelationCoef" begin
-    function naive_correlation_coef(source, template)
+@testset "::CorrelationCoeff" begin
+    function naive_correlation_coeff(source, template)
         template = template .- mean(template)
 
         result = mapwindow(source, size(template), border=Inner()) do subsection
@@ -199,7 +199,7 @@ end
         template = source[50:70, :, 30:35]
         dest = similar(source, 80, 1, 95)
 
-        result = match_template!(dest, source, template, CorrelationCoef())
+        result = match_template!(dest, source, template, CorrelationCoeff())
 
         @test argmax(result) === CartesianIndex(50, 1, 30)
         @test dest === result
@@ -210,8 +210,8 @@ end
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
 
-        naive_result = naive_correlation_coef(source, template)
-        result = match_template(source, template, CorrelationCoef())
+        naive_result = naive_correlation_coeff(source, template)
+        result = match_template(source, template, CorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end
@@ -219,15 +219,15 @@ end
     let
         source = rand(rng, 20, 20, 20)
         template = rand(rng, 7, 5, 3)
-        naive_result = naive_correlation_coef(source, template)
-        result = match_template(source, template, CorrelationCoef())
+        naive_result = naive_correlation_coeff(source, template)
+        result = match_template(source, template, CorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end
 end
 
-@testset "::NormedCorrelationCoef" begin
-    function naive_normed_correlation_coef(source, template)
+@testset "::NormedCorrelationCoeff" begin
+    function naive_normed_correlation_coeff(source, template)
         sum2(a) = sum(x -> x^2, a)
 
         template = template .- mean(template)
@@ -247,7 +247,7 @@ end
         template = source[50:70, :, 30:35]
         dest = similar(source, 80, 1, 95)
 
-        result = match_template!(dest, source, template, NormedCorrelationCoef())
+        result = match_template!(dest, source, template, NormedCorrelationCoeff())
 
         @test argmax(result) === CartesianIndex(50, 1, 30)
         @test dest === result
@@ -258,8 +258,8 @@ end
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
 
-        naive_result = naive_normed_correlation_coef(source, template)
-        result = match_template(source, template, NormedCorrelationCoef())
+        naive_result = naive_normed_correlation_coeff(source, template)
+        result = match_template(source, template, NormedCorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end
@@ -267,8 +267,8 @@ end
     let
         source = rand(rng, 20, 20, 20)
         template = rand(rng, 7, 5, 3)
-        naive_result = naive_normed_correlation_coef(source, template)
-        result = match_template(source, template, NormedCorrelationCoef())
+        naive_result = naive_normed_correlation_coeff(source, template)
+        result = match_template(source, template, NormedCorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end

@@ -1,4 +1,4 @@
-function correlation_coef!(dest, source, template)
+function correlation_coeff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	
 	dest_size = Tuple(size(source) .- size(template) .+ 1)
@@ -22,7 +22,7 @@ function correlation_coef!(dest, source, template)
 end
 
 
-function normed_correlation_coef!(dest, source, template)
+function normed_correlation_coeff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	
 	dest_size = Tuple(size(source) .- size(template) .+ 1)

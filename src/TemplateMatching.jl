@@ -3,7 +3,7 @@ module TemplateMatching
 export match_template, match_template!,
     SquareDiff, NormedSquareDiff,
     CrossCorrelation, NormedCrossCorrelation,
-    CorrelationCoef, NormedCorrelationCoef
+    CorrelationCoeff, NormedCorrelationCoeff
 
 include("IntegralArray.jl")
 
@@ -13,12 +13,12 @@ struct SquareDiff <: Algorithm end
 struct NormedSquareDiff <: Algorithm end
 struct CrossCorrelation <: Algorithm end
 struct NormedCrossCorrelation <: Algorithm end
-struct CorrelationCoef <: Algorithm end
-struct NormedCorrelationCoef <: Algorithm end
+struct CorrelationCoeff <: Algorithm end
+struct NormedCorrelationCoeff <: Algorithm end
 
 include("square_diff.jl")
 include("cross_correlation.jl")
-include("correlation_coef.jl")
+include("correlation_coeff.jl")
 
 function match_template(source, template, alg::Algorithm)
     dest_size = Tuple(size(source) .- size(template) .+ 1)
@@ -45,12 +45,12 @@ function match_template!(dest, source, template, ::NormedCrossCorrelation)
     return normed_cross_correlation!(dest, source, template)
 end
 
-function match_template!(dest, source, template, ::CorrelationCoef)
-    return correlation_coef!(dest, source, template)
+function match_template!(dest, source, template, ::CorrelationCoeff)
+    return correlation_coeff!(dest, source, template)
 end
 
-function match_template!(dest, source, template, ::NormedCorrelationCoef)
-    return normed_correlation_coef!(dest, source, template)
+function match_template!(dest, source, template, ::NormedCorrelationCoeff)
+    return normed_correlation_coeff!(dest, source, template)
 end
 
 end
