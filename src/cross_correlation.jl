@@ -15,7 +15,7 @@ function cross_correlation!(dest, source, template)
 	)
 end
 
-function normed_cross_correlation!(dest, source, template)
+function normalized_cross_correlation!(dest, source, template)
     @assert ndims(source) == ndims(template) "source and template should have same number of dims"
     
     dest_size = Tuple(size(source) .- size(template) .+ 1)

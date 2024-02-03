@@ -51,8 +51,8 @@ rng = Xoshiro(0)
     end
 end
 
-@testset "::NormedSquareDiff" begin
-    function naive_normed_square_diff(source, template)
+@testset "::NormalizedSquareDiff" begin
+    function naive_normalized_square_diff(source, template)
         sum2(a) = sum(x -> x^2, a)
         sum2_template = sum2(template)
 
@@ -68,7 +68,7 @@ end
         template = source[50:70, :, 30:35]
         dest = similar(source, 80, 1, 95)
 
-        result = match_template!(dest, source, template, NormedSquareDiff())
+        result = match_template!(dest, source, template, NormalizedSquareDiff())
 
         @test argmin(result) === CartesianIndex(50, 1, 30)
         @test dest === result
@@ -79,8 +79,8 @@ end
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
 
-        naive_result = naive_normed_square_diff(source, template)
-        result = match_template(source, template, NormedSquareDiff())
+        naive_result = naive_normalized_square_diff(source, template)
+        result = match_template(source, template, NormalizedSquareDiff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end
@@ -89,8 +89,8 @@ end
         source = rand(rng, 20, 20, 20)
         template = rand(rng, 7, 5, 3)
 
-        naive_result = naive_normed_square_diff(source, template)
-        result = match_template(source, template, NormedSquareDiff())
+        naive_result = naive_normalized_square_diff(source, template)
+        result = match_template(source, template, NormalizedSquareDiff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end    
@@ -137,8 +137,8 @@ end
     end
 end
 
-@testset "::NormedCrossCorrelation" begin
-    function naive_normed_cross_correlation(source, template)
+@testset "::NormalizedCrossCorrelation" begin
+    function naive_normalized_cross_correlation(source, template)
         sum2(a) = sum(x -> x^2, a)
         sum2_template = sum2(template)
 
@@ -154,7 +154,7 @@ end
         template = source[50:70, :, 30:35]
         dest = similar(source, 80, 1, 95)
 
-        result = match_template!(dest, source, template, NormedCrossCorrelation())
+        result = match_template!(dest, source, template, NormalizedCrossCorrelation())
 
         @test argmax(result) === CartesianIndex(50, 1, 30)
         @test dest === result
@@ -164,8 +164,8 @@ end
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
 
-        naive_result = naive_normed_cross_correlation(source, template)
-        result = match_template(source, template, NormedCrossCorrelation())
+        naive_result = naive_normalized_cross_correlation(source, template)
+        result = match_template(source, template, NormalizedCrossCorrelation())
 
         @test all(isapprox.(result, naive_result, rtol=1e-5))
     end
@@ -174,8 +174,8 @@ end
         source = rand(rng, 20, 20, 20)
         template = rand(rng, 7, 5, 3)
 
-        naive_result = naive_normed_cross_correlation(source, template)
-        result = match_template(source, template, NormedCrossCorrelation())
+        naive_result = naive_normalized_cross_correlation(source, template)
+        result = match_template(source, template, NormalizedCrossCorrelation())
 
         @test all(isapprox.(result, naive_result, rtol=1e-5))
     end
@@ -226,8 +226,8 @@ end
     end
 end
 
-@testset "::NormedCorrelationCoeff" begin
-    function naive_normed_correlation_coeff(source, template)
+@testset "::NormalizedCorrelationCoeff" begin
+    function naive_normalized_correlation_coeff(source, template)
         sum2(a) = sum(x -> x^2, a)
 
         template = template .- mean(template)
@@ -247,7 +247,7 @@ end
         template = source[50:70, :, 30:35]
         dest = similar(source, 80, 1, 95)
 
-        result = match_template!(dest, source, template, NormedCorrelationCoeff())
+        result = match_template!(dest, source, template, NormalizedCorrelationCoeff())
 
         @test argmax(result) === CartesianIndex(50, 1, 30)
         @test dest === result
@@ -258,8 +258,8 @@ end
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
 
-        naive_result = naive_normed_correlation_coeff(source, template)
-        result = match_template(source, template, NormedCorrelationCoeff())
+        naive_result = naive_normalized_correlation_coeff(source, template)
+        result = match_template(source, template, NormalizedCorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end
@@ -267,8 +267,8 @@ end
     let
         source = rand(rng, 20, 20, 20)
         template = rand(rng, 7, 5, 3)
-        naive_result = naive_normed_correlation_coeff(source, template)
-        result = match_template(source, template, NormedCorrelationCoeff())
+        naive_result = naive_normalized_correlation_coeff(source, template)
+        result = match_template(source, template, NormalizedCorrelationCoeff())
 
         @test all(isapprox.(result, naive_result, rtol=1e-10))
     end

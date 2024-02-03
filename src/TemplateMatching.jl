@@ -1,20 +1,20 @@
 module TemplateMatching
 
 export match_template, match_template!,
-    SquareDiff, NormedSquareDiff,
-    CrossCorrelation, NormedCrossCorrelation,
-    CorrelationCoeff, NormedCorrelationCoeff
+    SquareDiff, NormalizedSquareDiff,
+    CrossCorrelation, NormalizedCrossCorrelation,
+    CorrelationCoeff, NormalizedCorrelationCoeff
 
 include("IntegralArray.jl")
 
 abstract type Algorithm end
 
 struct SquareDiff <: Algorithm end
-struct NormedSquareDiff <: Algorithm end
+struct NormalizedSquareDiff <: Algorithm end
 struct CrossCorrelation <: Algorithm end
-struct NormedCrossCorrelation <: Algorithm end
+struct NormalizedCrossCorrelation <: Algorithm end
 struct CorrelationCoeff <: Algorithm end
-struct NormedCorrelationCoeff <: Algorithm end
+struct NormalizedCorrelationCoeff <: Algorithm end
 
 include("square_diff.jl")
 include("cross_correlation.jl")
@@ -33,24 +33,24 @@ function match_template!(dest, source, template, ::SquareDiff)
     return square_diff!(dest, source, template)
 end
 
-function match_template!(dest, source, template, ::NormedSquareDiff)
-    return normed_square_diff!(dest, source, template)
+function match_template!(dest, source, template, ::NormalizedSquareDiff)
+    return normalized_square_diff!(dest, source, template)
 end
 
 function match_template!(dest, source, template, ::CrossCorrelation)
     return cross_correlation!(dest, source, template)
 end
 
-function match_template!(dest, source, template, ::NormedCrossCorrelation)
-    return normed_cross_correlation!(dest, source, template)
+function match_template!(dest, source, template, ::NormalizedCrossCorrelation)
+    return normalized_cross_correlation!(dest, source, template)
 end
 
 function match_template!(dest, source, template, ::CorrelationCoeff)
     return correlation_coeff!(dest, source, template)
 end
 
-function match_template!(dest, source, template, ::NormedCorrelationCoeff)
-    return normed_correlation_coeff!(dest, source, template)
+function match_template!(dest, source, template, ::NormalizedCorrelationCoeff)
+    return normalized_correlation_coeff!(dest, source, template)
 end
 
 end
