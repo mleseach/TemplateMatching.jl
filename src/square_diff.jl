@@ -1,3 +1,6 @@
+"""
+Implementation of the SquareDiff method
+"""
 function square_diff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	
@@ -20,7 +23,9 @@ function square_diff!(dest, source, template)
 	return dest
 end
 
-
+"""
+Implementation of the NormalizedSquareDiff method
+"""
 function normalized_square_diff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	

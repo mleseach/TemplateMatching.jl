@@ -14,8 +14,10 @@ makedocs(;
         edit_link="master",
         assets=String[],
     ),
+    checkdocs=:exports,
     pages=[
-        "Home" => "index.md",
+        "Get started" => "index.md",
+        "Reference" => "reference.md"
     ],
 )
 

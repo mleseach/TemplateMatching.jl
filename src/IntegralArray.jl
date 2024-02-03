@@ -1,6 +1,11 @@
 using Statistics: mean
 import Base.sum
 
+"""
+    biased_cumsum!(B, A, bias; dims)
+
+Equivalent to `cumsum!(B, A .+ bias, dims=dims)`.
+"""
 function biased_cumsum!(B, A, bias; dims)
     result = accumulate!(B, A, dims=dims, init=0) do a, b
         a + b + bias
@@ -9,6 +14,11 @@ function biased_cumsum!(B, A, bias; dims)
     return result
 end
 
+"""
+    integral_array!(output, array, bias)
+
+Compute the integral array.
+"""
 function integral_array!(
     output::AbstractArray{T,N},
     array::AbstractArray{T,N},
@@ -22,6 +32,22 @@ function integral_array!(
     return output
 end
 
+"""
+    IntegralArray(integral, bias)
+    IntegralArray(array)
+    IntegralArray(f, array)
+
+Structure that represents an 
+[integral array](https://en.wikipedia.org/wiki/Summed-area_table).
+# Arguments
+- `integral`: the already computed integral array.
+- `bias`: the bias associated to computed integral array.
+- `array`: the input array from which the integral image will be computed.
+- `f`: a function to apply to each element of `array` before computing the integral.
+
+Integral arrays allow fast summation queries over rectangular subregions using
+[`sum(::IntegralArray, x, h)`](@ref).
+"""
 struct IntegralArray{T,A<:AbstractArray{T}}
     integral::A
     bias::T
@@ -50,8 +76,22 @@ struct IntegralArray{T,A<:AbstractArray{T}}
     end
 end
 
-#    \int_{\[a_0, a_0+h_0\] \times \cdots \times \[a_d, a_0+h_0]} f(x_0, \dots, x_d) d(x_0, \dots, x_d)
-# =  \sum_{(i_0, \dots, i_d) \in \{0, 1\}^d} \int_{\[0, a_0 + i_0 * h_0\] \times \cdots \times \[0, a_d + i_d * h_d]} f(x_0, \dots, x_d) d(x_0, \dots, x_d)
+"""
+    sum(integral, x, h)
+
+Calculate the sum of values within a rectangle defined by its top-left corner
+`x` and dimensions `h` in an [`IntegralArray`](@ref).
+
+# Examples
+```jldoctest
+using TemplateMatching: IntegralArray
+
+sum(IntegralArray([1. 2. 3.; 4. 5. 6.; 7. 8. 9.]), (2, 1), (2, 2))
+
+# output
+24.0
+```
+"""
 @inline function sum(integral::IntegralArray{T}, x, h) where T
     d = ndims(integral.integral)
 
@@ -99,8 +139,19 @@ end
 end
 
 """
-    transform the d lower bits of n into a tuple
-    example: int_to_tuple(0b0111011, 4) == (1,1,0,1)
+    int_to_tuple(n, d)
+Transform the `d`` lower bits of `n` into a tuple
+
+# Examples
+
+```jldoctest
+using TemplateMatching: int_to_tuple
+
+int_to_tuple(0b0111011, 4)
+
+# output
+(1, 1, 0, 1)
+```
 """
 function int_to_tuple(n, d)
     return ntuple(i -> (n >> (i-1)) & 1, d)

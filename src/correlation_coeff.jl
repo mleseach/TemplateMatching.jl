@@ -1,3 +1,6 @@
+"""
+Implementation of the CorrelationCoeff method
+"""
 function correlation_coeff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	
@@ -21,7 +24,9 @@ function correlation_coeff!(dest, source, template)
 	return dest
 end
 
-
+"""
+Implementation of the NormalizedCorrelationCoeff method
+"""
 function normalized_correlation_coeff!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	

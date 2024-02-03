@@ -1,6 +1,9 @@
 using ImageFiltering: imfilter!, Inner
 using OffsetArrays: OffsetArray
 
+"""
+Implementation of the CrossCorrelation method
+"""
 function cross_correlation!(dest, source, template)
 	@assert ndims(source) == ndims(template) "source and template should have same number of dims"
 	
@@ -15,6 +18,9 @@ function cross_correlation!(dest, source, template)
 	)
 end
 
+"""
+Implementation of the NormalizedCrossCorrelation method
+"""
 function normalized_cross_correlation!(dest, source, template)
     @assert ndims(source) == ndims(template) "source and template should have same number of dims"
     
