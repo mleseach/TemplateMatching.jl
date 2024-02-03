@@ -4,7 +4,7 @@ CurrentModule = TemplateMatching
 
 # TemplateMatching
 
-Documentation for [TemplateMatching](https://github.com/mle-seach/TemplateMatching.jl).
+Documentation for [TemplateMatching](https://github.com/mleseach/TemplateMatching.jl).
 
 ```@index
 ```

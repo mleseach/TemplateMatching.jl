@@ -5,12 +5,12 @@ DocMeta.setdocmeta!(TemplateMatching, :DocTestSetup, :(using TemplateMatching); 
 
 makedocs(;
     modules=[TemplateMatching],
-    authors="mle-seach <113145496+mle-seach@users.noreply.github.com>",
-    repo="https://github.com/mle-seach/TemplateMatching.jl/blob/{commit}{path}#{line}",
+    authors="mleseach <113145496+mleseach@users.noreply.github.com>",
+    repo="https://github.com/mleseach/TemplateMatching.jl/blob/{commit}{path}#{line}",
     sitename="TemplateMatching.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://mle-seach.github.io/TemplateMatching.jl",
+        canonical="https://mleseach.github.io/TemplateMatching.jl",
         edit_link="master",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/mle-seach/TemplateMatching.jl",
+    repo="github.com/mleseach/TemplateMatching.jl",
     devbranch="master",
 )
