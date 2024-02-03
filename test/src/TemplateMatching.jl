@@ -1,7 +1,7 @@
 using Test
 using TemplateMatching
 
-using Images
+using ImageFiltering
 using Statistics
 using Random
 
