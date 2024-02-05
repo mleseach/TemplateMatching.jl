@@ -66,4 +66,4 @@ jobs:
             using Documenter: DocMeta, doctest
             using TemplateMatching
             DocMeta.setdocmeta!(TemplateMatching, :DocTestSetup, :(using TemplateMatching); recursive=true)
-            doctest(TemplateMatching)'
+            doctest(TemplateMatching)
