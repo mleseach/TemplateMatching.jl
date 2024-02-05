@@ -1,7 +1,7 @@
 name = "TemplateMatching"
 uuid = "b21ddb9f-2587-4215-bf7c-fbe182daf540"
 authors = ["mleseach <113145496+mleseach@users.noreply.github.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 ImageFiltering = "6a3955dd-da59-5b1f-98d4-e7296123deb5"
