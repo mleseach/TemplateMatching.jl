@@ -33,12 +33,11 @@ problem in most cases.
 ## Installation
 
 To install TemplateMatching, use the Julia package manager.
-As it is not yet registered, use the full url of the repository.
 Open your Julia command-line interface and run:
 
 ```julia
 using Pkg
-Pkg.add("https://github.com/mleseach/TemplateMatching.jl")
+Pkg.add("TemplateMatching")
 ```
 
 ## Usage
