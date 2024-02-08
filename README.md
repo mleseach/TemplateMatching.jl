@@ -20,12 +20,12 @@ Below is a table summarising available methods and their equivalent in opencv.
 
 | TemplateMatching.jl             | Mask                | OpenCV equivalent      | 
 |:--------------------------------|:-------------------:|:-----------------------|
-| SquareDiff                      | Not yet supported   | `TM_SQDIFF`            |
-| NormalizedSquareDiff            | Not yet supported   | `TM_SQDIFF_NORMED`     |
-| CrossCorrelation                | Not yet supported   | `TM_CCORR`             |
-| NormalizedCrossCorrelation      | Not yet supported   | `TM_CCORR_NORMED`      |
-| CorrelationCoeff                | Not yet supported   | `TM_CCOEFF`            |
-| NormalizedCorrelationCoeff      | Not yet supported   | `TM_CCOEFF_NORMED`     |
+| `SquareDiff`                      | Not yet supported   | `TM_SQDIFF`            |
+| `NormalizedSquareDiff`            | Not yet supported   | `TM_SQDIFF_NORMED`     |
+| `CrossCorrelation`                | Not yet supported   | `TM_CCORR`             |
+| `NormalizedCrossCorrelation`      | Not yet supported   | `TM_CCORR_NORMED`      |
+| `CorrelationCoeff`                | Not yet supported   | `TM_CCOEFF`            |
+| `NormalizedCorrelationCoeff`      | Not yet supported   | `TM_CCOEFF_NORMED`     |
 
 [^1]: Up to 64 dimensions because of an implementation detail, but this shouldn't be a
 problem in most cases.

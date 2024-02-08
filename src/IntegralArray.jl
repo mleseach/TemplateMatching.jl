@@ -140,7 +140,7 @@ end
 
 """
     int_to_tuple(n, d)
-Transform the `d`` lower bits of `n` into a tuple
+Transform the `d` lower bits of `n` into a tuple
 
 # Examples
 
