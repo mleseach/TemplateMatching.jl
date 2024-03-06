@@ -59,13 +59,13 @@ source = rand(1000, 1000)
 template = source[400:500, 100:150]
 
 # Perform template matching using square difference
-result = match_template(source, template, SquareDiff)
+result = match_template(source, template, SquareDiff())
 
 # Get the best match
 argmin(result) # CartesianIndex(400, 100)
 
 # Perform template matching using normalized correlation coefficient
-result = match_template(source, template, NormalizedCorrCoeff)
+result = match_template(source, template, NormalizedCorrCoeff())
 
 # Get the best match
 argmax(result) # CartesianIndex(400, 100)
