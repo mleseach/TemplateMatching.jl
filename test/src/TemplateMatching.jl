@@ -11,10 +11,10 @@ rng = Xoshiro(0)
     function naive_square_diff(source, template)
         sum2(a) = sum(x -> x^2, a)
 
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             sum2(subsection .- template)
         end
-    
+
         return parent(result)
     end
 
@@ -29,7 +29,6 @@ rng = Xoshiro(0)
         @test dest === result
     end
 
-
     let
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
@@ -37,7 +36,7 @@ rng = Xoshiro(0)
         naive_result = naive_square_diff(source, template)
         result = match_template(source, template, SquareDiff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 
     let
@@ -47,7 +46,7 @@ rng = Xoshiro(0)
         naive_result = naive_square_diff(source, template)
         result = match_template(source, template, SquareDiff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 end
 
@@ -56,10 +55,10 @@ end
         sum2(a) = sum(x -> x^2, a)
         sum2_template = sum2(template)
 
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             sum2(subsection .- template) / sqrt(sum2(subsection) * sum2_template)
         end
-    
+
         return parent(result)
     end
 
@@ -74,7 +73,6 @@ end
         @test dest === result
     end
 
-
     let
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
@@ -82,7 +80,7 @@ end
         naive_result = naive_normalized_square_diff(source, template)
         result = match_template(source, template, NormalizedSquareDiff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 
     let
@@ -92,16 +90,16 @@ end
         naive_result = naive_normalized_square_diff(source, template)
         result = match_template(source, template, NormalizedSquareDiff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
-    end    
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
+    end
 end
 
 @testset "::CrossCorrelation" begin
     function naive_cross_correlation(source, template)
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             sum(subsection .* template)
         end
-    
+
         return parent(result)
     end
 
@@ -116,7 +114,6 @@ end
         @test dest === result
     end
 
-
     let
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
@@ -124,7 +121,7 @@ end
         naive_result = naive_cross_correlation(source, template)
         result = match_template(source, template, CrossCorrelation())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 
     let
@@ -133,7 +130,7 @@ end
         naive_result = naive_cross_correlation(source, template)
         result = match_template(source, template, CrossCorrelation())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 end
 
@@ -142,10 +139,10 @@ end
         sum2(a) = sum(x -> x^2, a)
         sum2_template = sum2(template)
 
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             sum(subsection .* template) / sqrt(sum2(subsection) * sum2_template)
         end
-    
+
         return parent(result)
     end
 
@@ -167,7 +164,7 @@ end
         naive_result = naive_normalized_cross_correlation(source, template)
         result = match_template(source, template, NormalizedCrossCorrelation())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-5))
+        @test all(isapprox.(result, naive_result, rtol = 1e-5))
     end
 
     let
@@ -177,7 +174,7 @@ end
         naive_result = naive_normalized_cross_correlation(source, template)
         result = match_template(source, template, NormalizedCrossCorrelation())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-5))
+        @test all(isapprox.(result, naive_result, rtol = 1e-5))
     end
 end
 
@@ -185,12 +182,12 @@ end
     function naive_correlation_coeff(source, template)
         template = template .- mean(template)
 
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             subsection = subsection .- mean(subsection)
 
             sum(subsection .* template)
         end
-    
+
         return parent(result)
     end
 
@@ -205,7 +202,6 @@ end
         @test dest === result
     end
 
-
     let
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
@@ -213,7 +209,7 @@ end
         naive_result = naive_correlation_coeff(source, template)
         result = match_template(source, template, CorrelationCoeff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 
     let
@@ -222,7 +218,7 @@ end
         naive_result = naive_correlation_coeff(source, template)
         result = match_template(source, template, CorrelationCoeff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 end
 
@@ -233,12 +229,12 @@ end
         template = template .- mean(template)
         sum2_template = sum2(template)
 
-        result = mapwindow(source, size(template), border=Inner()) do subsection
+        result = mapwindow(source, size(template), border = Inner()) do subsection
             subsection = subsection .- mean(subsection)
 
             sum(subsection .* template) / sqrt(sum2(subsection) * sum2_template)
         end
-    
+
         return parent(result)
     end
 
@@ -253,7 +249,6 @@ end
         @test dest === result
     end
 
-
     let
         source = rand(rng, 50, 50)
         template = rand(rng, 35, 25)
@@ -261,7 +256,7 @@ end
         naive_result = naive_normalized_correlation_coeff(source, template)
         result = match_template(source, template, NormalizedCorrelationCoeff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 
     let
@@ -270,6 +265,6 @@ end
         naive_result = naive_normalized_correlation_coeff(source, template)
         result = match_template(source, template, NormalizedCorrelationCoeff())
 
-        @test all(isapprox.(result, naive_result, rtol=1e-10))
+        @test all(isapprox.(result, naive_result, rtol = 1e-10))
     end
 end

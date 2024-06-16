@@ -1,9 +1,13 @@
 module TemplateMatching
 
-export match_template, match_template!,
-    SquareDiff, NormalizedSquareDiff,
-    CrossCorrelation, NormalizedCrossCorrelation,
-    CorrelationCoeff, NormalizedCorrelationCoeff
+export match_template,
+       match_template!,
+       SquareDiff,
+       NormalizedSquareDiff,
+       CrossCorrelation,
+       NormalizedCrossCorrelation,
+       CorrelationCoeff,
+       NormalizedCorrelationCoeff
 
 include("IntegralArray.jl")
 
