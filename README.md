@@ -11,24 +11,9 @@ allowing users to leverage the high-performance capabilities of Julia for templa
 operations. The package offers performance slightly below that of OpenCV but significantly
 better than a naive implementation.
 
-## Features
+## Documentation
 
-Masks are not yet supported in the current version of the package.
-Unlike OpenCV, TemplateMatching.jl supports n-dimensional arrays[^1].
-
-Below is a table summarising available methods and their equivalent in opencv.
-
-| TemplateMatching.jl             | Mask                | OpenCV equivalent      | 
-|:--------------------------------|:-------------------:|:-----------------------|
-| `SquareDiff`                      | Not yet supported   | `TM_SQDIFF`            |
-| `NormalizedSquareDiff`            | Not yet supported   | `TM_SQDIFF_NORMED`     |
-| `CrossCorrelation`                | Not yet supported   | `TM_CCORR`             |
-| `NormalizedCrossCorrelation`      | Not yet supported   | `TM_CCORR_NORMED`      |
-| `CorrelationCoeff`                | Not yet supported   | `TM_CCOEFF`            |
-| `NormalizedCorrelationCoeff`      | Not yet supported   | `TM_CCOEFF_NORMED`     |
-
-[^1]: Up to 64 dimensions because of an implementation detail, but this shouldn't be a
-problem in most cases.
+Full documentation and description can be found [here](https://mleseach.github.io/TemplateMatching.jl/stable/)
 
 ## Installation
 
@@ -40,48 +25,83 @@ using Pkg
 Pkg.add("TemplateMatching")
 ```
 
-## Usage
+## Features
 
-Almost everything you need is the function `match_template` and its inplace counterpart
-`match_template!`.
+Masks are not yet supported in the current version of the package.
+Unlike OpenCV, TemplateMatching.jl supports n-dimensional arrays[^1].
 
-Below is a quick start example on how to use the TemplateMatching package to perform
-template matching:
+Below is a table summarising available methods and their equivalent in opencv.
 
-```julia
+| TemplateMatching.jl             | Mask                | OpenCV equivalent      | 
+|:--------------------------------|:-------------------:|:-----------------------|
+| `SquareDiff`                    | Not yet supported   | `TM_SQDIFF`            |
+| `NormalizedSquareDiff`          | Not yet supported   | `TM_SQDIFF_NORMED`     |
+| `CrossCorrelation`              | Not yet supported   | `TM_CCORR`             |
+| `NormalizedCrossCorrelation`    | Not yet supported   | `TM_CCORR_NORMED`      |
+| `CorrelationCoeff`              | Not yet supported   | `TM_CCOEFF`            |
+| `NormalizedCorrelationCoeff`    | Not yet supported   | `TM_CCOEFF_NORMED`     |
+
+[^1]: Up to 64 dimensions because of an implementation detail, but this shouldn't be a
+problem in most cases.
+
+
+## Short demo
+
+Full demo can be found [here](https://mleseach.github.io/TemplateMatching.jl/stable/demos/demos/demo.html)
+
+Import necessary packages
+
+````julia
+using ImageCore          # Provides core functionalities for image processing
+using ImageDraw          # Provides drawing functionalities for images
+using TestImages         # Supplies a collection of test images for experimentation
+
 using TemplateMatching
-using Images
+````
 
-# Load your source image and template
-source = rand(1000, 1000)
-template = source[400:500, 100:150]
+Load the mandrill test image.
 
-# Perform template matching using square difference
-result = match_template(source, template, SquareDiff())
+````julia
+img = testimage("mandrill")
+````
+![](assets/demo-4.png)
 
-# Get the best match
-argmin(result) # CartesianIndex(400, 100)
+Extract a specific portion of the image to use as the template.
 
-# Perform template matching using normalized correlation coefficient
-result = match_template(source, template, NormalizedCorrCoeff())
+````julia
+template = img[50:80, 150:200]
+````
+![](assets/demo-6.png)
 
-# Get the best match
-argmax(result) # CartesianIndex(400, 100)
-```
+Convert the image and template to arrays of Float32 type, then perform template matching using Normalized Square Difference as the metric.
 
-## Documentation
+````julia
+img_array = channelview(img) .|> Float32
+template_array = channelview(template) .|> Float32
 
-For more detailed information on all the functions and their parameters, please refer to
-the full [documentation](https://mleseach.github.io/TemplateMatching.jl/stable/).
+result = match_template(img_array, template_array, NormalizedSquareDiff())
+result = dropdims(result, dims = 1)
+````
 
-## Possible improvements
-- [ ] Support for template mask (planned)
-- [ ] Support for GPU
-- [ ] Improve performances
-- [ ] More tests and examples in documentation
-- [ ] Better errors
+Display the grayscale version of the result; darker areas indicate closer matches.
+
+````julia
+result .|> Gray
+````
+![](assets/demo-14.png)
+
+Identify the location of the best match (the smallest value in the case of Normalized Square Difference), then draw a rectangle around on the original image.
+
+````julia
+loc = argmin(result)
+draw(
+    img,
+    RectanglePoints(loc[2], loc[1], loc[2] + size(template, 2), loc[1] + size(template, 1)),
+    RGB(1, 0, 0)
+)
+````
+![](assets/demo-18.png)
 
 ## License
 
-TemplateMatching is provided under the [MIT License](LICENSE). Feel free to use it in your
-projects.
+TemplateMatching is provided under the [MIT License](LICENSE). 
